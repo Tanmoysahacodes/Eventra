@@ -79,20 +79,20 @@ const socialLinks = [
     ),
   },
   {
-  name: "Discord",
-  href: "https://discord.gg/6MQ9r5nHT",
-  icon: (
-    <SiDiscord
-      className="size-10 p-2 rounded-full text-black dark:text-white bg-white dark:bg-gray-800 shadow-sm hover:shadow-lg transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:scale-110 hover:-translate-y-1"
-      size={20}
+    name: "Discord",
+    href: "https://discord.gg/6MQ9r5nHT",
+    icon: (
+      <SiDiscord
+        className="size-10 p-2 rounded-full text-black dark:text-white bg-white dark:bg-gray-800 shadow-sm hover:shadow-lg transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:scale-110 hover:-translate-y-1"
+        size={20}
       />
     ),
- },
+  },
 ].filter(Boolean);
 
 /* ================================
    Secure External Link Handling
-
+================================ */
 const externalLinkProps = {
   target: "_blank",
   rel: "noopener noreferrer",
@@ -284,69 +284,69 @@ const Newsletter = () => {
 const SocialLinksRender = () => {
   const { t } = useTranslation();
   return (
-  <div className="mt-6">
-    <h4 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider mb-3">
-      {t("footer.followUs")}
-    </h4>
+    <div className="mt-6">
+      <h4 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider mb-3">
+        {t("footer.followUs")}
+      </h4>
 
-    <div className="flex flex-wrap gap-3">
-      {socialLinks.map((link) => (
-        <ExternalLink
-          key={link.name}
-          href={link.href}
-          className="text-gray-500 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-1 rounded-full"
-          aria-label={link.name}
-          title={link.name}
-        >
-          <span className="sr-only">
-            {link.name}
-          </span>
+      <div className="flex flex-wrap gap-3">
+        {socialLinks.map((link) => (
+          <ExternalLink
+            key={link.name}
+            href={link.href}
+            className="text-gray-500 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-1 rounded-full"
+            aria-label={link.name}
+            title={link.name}
+          >
+            <span className="sr-only">
+              {link.name}
+            </span>
 
-          {link.icon}
-        </ExternalLink>
-      ))}
+            {link.icon}
+          </ExternalLink>
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
 };
 
 const FooterLinksRender = () => {
   const { t } = useTranslation();
   return (
-  <>
-    {Object.entries(footerLinks).map(
-      ([key, links]) => (
-        <div
-          key={key}
-          className="py-2"
-        >
-          <h4 className="text-xs font-bold text-gray-900 dark:text-white uppercase tracking-widest mb-6">
-            {t(footerSectionKeys[key])}
-          </h4>
+    <>
+      {Object.entries(footerLinks).map(
+        ([key, links]) => (
+          <div
+            key={key}
+            className="py-2"
+          >
+            <h4 className="text-xs font-bold text-gray-900 dark:text-white uppercase tracking-widest mb-6">
+              {t(footerSectionKeys[key])}
+            </h4>
 
-          <ul className="space-y-4">
-            {links.map((link) => (
-              <li key={link.nameKey}>
-                <Link
-                  to={link.href}
-                  className="text-sm text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white flex items-center gap-4 transition-all duration-300 hover:translate-x-1 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-1 rounded"
-                >
-                  {link.icon && (
-                    <span className="text-gray-700 dark:text-gray-200 group-hover:scale-110 transition-all duration-300">
-                      {link.icon}
-                    </span>
-                  )}
+            <ul className="space-y-4">
+              {links.map((link) => (
+                <li key={link.nameKey}>
+                  <Link
+                    to={link.href}
+                    className="text-sm text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white flex items-center gap-4 transition-all duration-300 hover:translate-x-1 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-1 rounded"
+                  >
+                    {link.icon && (
+                      <span className="text-gray-700 dark:text-gray-200 group-hover:scale-110 transition-all duration-300">
+                        {link.icon}
+                      </span>
+                    )}
 
-                  <span>{t(link.nameKey)}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )
-    )}
-  </>
-);
+                    <span>{t(link.nameKey)}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+      )}
+    </>
+  );
 };
 
 const Footer = () => {

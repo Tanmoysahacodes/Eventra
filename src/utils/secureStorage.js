@@ -1,4 +1,4 @@
- 
+
 /**
  * @file secureStorage.js
  * @module utils/secureStorage
@@ -334,12 +334,12 @@ const migratePayload = async (fromVersion, toVersion, storageKey, plaintext) => 
   if (fromVersion === toVersion) {
     return await encryptValue(storageKey, plaintext);
   }
-  
+
   // Example future migration:
   // if (fromVersion === 1 && toVersion === 2) {
   //   return await encryptV2(storageKey, plaintext);
   // }
-  
+
   throw new Error(`Migration from v${fromVersion} to v${toVersion} not implemented`);
 };
 
@@ -360,18 +360,18 @@ export const rotateKey = async () => {
     // Generate new key material
     const newMaterial = crypto.getRandomValues(new Uint8Array(SECRET_BYTE_LENGTH));
     const newSalt = crypto.getRandomValues(new Uint8Array(SECRET_BYTE_LENGTH));
-    
+
     // Store new material
     localStorage.setItem(MATERIAL_STORAGE_KEY, btoa(String.fromCharCode(...newMaterial)));
     localStorage.setItem(SALT_STORAGE_KEY, btoa(String.fromCharCode(...newSalt)));
-    
+
     // Update in-memory values
     DERIVED_KEY_MATERIAL.set(newMaterial);
     DERIVED_KEY_SALT.set(newSalt);
-    
+
     // Reset key promise to force re-derivation
     _keyPromise = null;
-    
+
     // Update metadata
     _keyMetadata = {
       version: CRYPTO_CONFIG.VERSION,
@@ -382,7 +382,7 @@ export const rotateKey = async () => {
       keyLength: CRYPTO_CONFIG.KEY_LENGTH,
     };
     localStorage.setItem(KEY_METADATA_KEY, JSON.stringify(_keyMetadata));
-    
+
     return _keyMetadata;
   } catch (error) {
     console.error('[secureStorage] Key rotation failed:', error);
@@ -464,21 +464,6 @@ export const decryptWithKey = async (key, stored) => {
   const decrypted = await crypto.subtle.decrypt({ name: CRYPTO_ALGORITHM, iv }, key, ciphertext);
   return new TextDecoder().decode(decrypted);
 };
-
-const isCryptoAvailable = () => {
-  try {
-    return (
-      typeof window !== 'undefined' &&
-      typeof crypto !== 'undefined' &&
-      typeof crypto.subtle !== 'undefined' &&
-      typeof crypto.getRandomValues === 'function' &&
-      window.isSecureContext !== false
-    );
-  } catch {
-    return false;
-  }
-};
-
 
 // ---------------------------------------------------------------------------
 // Encrypted key-value storage wrapper (localStorage — AES-GCM encrypted)
@@ -635,7 +620,7 @@ export const syncSecureStorage = {
       const ourCounter = counter;
 
       const prev = (writeQueue.get(key) || Promise.resolve())
-        .catch(() => {});
+        .catch(() => { });
       const next = prev.then(async () => {
         if (writeCounters.get(key) !== ourCounter) return;
         await writeWithEncryption(key, value);
